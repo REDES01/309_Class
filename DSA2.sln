@@ -106,6 +106,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C20_EntityManager", "C20_En
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C21_SpatialOptimization", "C21_SpatialOptimization\C21_SpatialOptimizationPt1.vcxproj", "{844D5FBC-A0E8-446D-AF24-7B6FAD8FD713}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MY", "MY", "{8863DBC2-25BB-404B-97D8-AD6AF3438072}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E03_Xuanang_Zhao", "E03_Xuanang_Zhao\E03_Xuanang_Zhao.vcxproj", "{164303FD-ADF9-4F50-9867-304E947CC4EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -272,6 +276,10 @@ Global
 		{844D5FBC-A0E8-446D-AF24-7B6FAD8FD713}.Debug|x86.Build.0 = Debug|Win32
 		{844D5FBC-A0E8-446D-AF24-7B6FAD8FD713}.Release|x86.ActiveCfg = Release|Win32
 		{844D5FBC-A0E8-446D-AF24-7B6FAD8FD713}.Release|x86.Build.0 = Release|Win32
+		{164303FD-ADF9-4F50-9867-304E947CC4EE}.Debug|x86.ActiveCfg = Debug|Win32
+		{164303FD-ADF9-4F50-9867-304E947CC4EE}.Debug|x86.Build.0 = Debug|Win32
+		{164303FD-ADF9-4F50-9867-304E947CC4EE}.Release|x86.ActiveCfg = Release|Win32
+		{164303FD-ADF9-4F50-9867-304E947CC4EE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -317,6 +325,7 @@ Global
 		{ABBF7913-BB7B-482F-9400-CDAD2D1BC828} = {1B431B5C-2C15-4F4D-9452-CF92F054A1ED}
 		{722C9F0A-01EC-4AA5-B08F-513AF93A58C6} = {1B431B5C-2C15-4F4D-9452-CF92F054A1ED}
 		{844D5FBC-A0E8-446D-AF24-7B6FAD8FD713} = {1B431B5C-2C15-4F4D-9452-CF92F054A1ED}
+		{164303FD-ADF9-4F50-9867-304E947CC4EE} = {8863DBC2-25BB-404B-97D8-AD6AF3438072}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1308D28-F0EE-436B-AA0D-4CFD1105C92A}

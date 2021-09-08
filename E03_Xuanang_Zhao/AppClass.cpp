@@ -35,9 +35,7 @@ void AppClass::Run(void)
 			} else if (event.type == sf::Event::KeyReleased)
 			{
 				if (!sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-				{
-
-				}
+					isReverse = 0;
 			}
 		}
 
@@ -122,7 +120,7 @@ void AppClass::ProcessKeyboard(sf::Event a_event)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
 		m_v3Color = glm::vec3(-1.0f, -1.0f, -1.0f);
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-
+		isReverse = 1;
 }
 void AppClass::Display(void)
 {
@@ -132,6 +130,10 @@ void AppClass::Display(void)
 	//read uniforms and send values
 	GLuint SolidColor = glGetUniformLocation(m_uShaderProgramID, "SolidColor");
 	glUniform3f(SolidColor, m_v3Color.r, m_v3Color.g, m_v3Color.b);
+
+	// 0 represents not reverse
+	GLuint ReverseInt = glGetUniformLocation(m_uShaderProgramID, "ReverseInt");
+	glUniform1i(ReverseInt, isReverse);
 
 	//draw content
 	glDrawArrays(GL_TRIANGLES, 0, 3);
