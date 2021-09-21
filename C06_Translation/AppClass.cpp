@@ -72,6 +72,7 @@ void AppClass::InitShaders(void)
 }
 void AppClass::InitVariables(void)
 {
+	float radius = 0.25;		
 	std::vector<vector3> lVertex;
 	//vertex 1
 	lVertex.push_back(vector3(-0.25f, -0.25f, 0.0f)); //position

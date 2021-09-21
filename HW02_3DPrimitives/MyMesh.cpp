@@ -1,4 +1,5 @@
 #include "MyMesh.h"
+#define PI 3.14159265359
 void MyMesh::GenerateCube(float a_fSize, vector3 a_v3Color)
 {
 	if (a_fSize < 0.01f)
@@ -61,8 +62,23 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	// GenerateCube(a_fRadius * 2.0f, a_v3Color);
 	// -------------------------------
+
+	for (int i = 0;i < a_nSubdivisions;i++)
+	{
+		float radius = PI / a_nSubdivisions*2;
+		vector3 point0(0,0, a_fHeight/2);	// Top
+		vector3 point1(cos(radius*i)*a_fRadius, sin(radius*i)*a_fRadius, -a_fHeight / 2);	// Bottom1
+		vector3 point2(cos(radius * (i+1))*a_fRadius, sin(radius * (i+1))*a_fRadius, -a_fHeight / 2);		// Bottom2
+
+
+		vector3 point4(0,0, -a_fHeight / 2);	// Center
+
+		AddTri(point0, point1, point2);
+		AddTri(point4,point2,point1);
+
+	}
 
 	// Adding information about color
 	CompleteMesh(a_v3Color);
@@ -85,8 +101,27 @@ void MyMesh::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisi
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	// GenerateCube(a_fRadius * 2.0f, a_v3Color);
 	// -------------------------------
+
+	for (int i = 0;i < a_nSubdivisions;i++)
+	{
+		float radius = PI / a_nSubdivisions * 2;
+		vector3 point0(0, 0, a_fHeight/2);	// Top
+		vector3 point1(cos(radius * i) * a_fRadius, sin(radius * i) * a_fRadius, -a_fHeight / 2);	// Bottom1
+		vector3 point2(cos(radius * (i + 1)) * a_fRadius, sin(radius * (i + 1)) * a_fRadius, -a_fHeight / 2);		// Bottom2
+		vector3 point3(cos(radius * i) * a_fRadius, sin(radius * i) * a_fRadius, a_fHeight/2);	// Top1
+		vector3 point4(cos(radius * (i + 1)) * a_fRadius, sin(radius * (i + 1)) * a_fRadius, a_fHeight/2);		// Top2
+
+
+		vector3 point5(0, 0, -a_fHeight / 2);	// Bottom
+
+		AddTri(point1, point5, point2);
+		AddTri(point0, point3, point4);
+
+		AddQuad(point1,point2,point3,point4);
+
+	}
 
 	// Adding information about color
 	CompleteMesh(a_v3Color);
@@ -115,8 +150,33 @@ void MyMesh::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fH
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fOuterRadius * 2.0f, a_v3Color);
+	// GenerateCube(a_fOuterRadius * 2.0f, a_v3Color);
 	// -------------------------------
+
+	for (int i = 0;i < a_nSubdivisions;i++)
+	{
+		float radius = PI / a_nSubdivisions * 2;
+
+		// Outer
+		vector3 point1(cos(radius * i) * a_fOuterRadius, sin(radius * i) * a_fOuterRadius, -a_fHeight / 2);	// Bottom1
+		vector3 point2(cos(radius * (i + 1)) * a_fOuterRadius, sin(radius * (i + 1)) * a_fOuterRadius, -a_fHeight / 2);		// Bottom2
+		vector3 point3(cos(radius * i) * a_fOuterRadius, sin(radius * i) * a_fOuterRadius, a_fHeight/2);	// Top1
+		vector3 point4(cos(radius * (i + 1)) * a_fOuterRadius, sin(radius * (i + 1)) * a_fOuterRadius, a_fHeight/2);		// Top2
+
+
+		// Inner
+		vector3 point5(cos(radius * i) * a_fInnerRadius, sin(radius * i) * a_fInnerRadius, -a_fHeight / 2);	// Bottom1
+		vector3 point6(cos(radius * (i + 1)) * a_fInnerRadius, sin(radius * (i + 1)) * a_fInnerRadius, -a_fHeight / 2);		// Bottom2
+		vector3 point7(cos(radius * i) * a_fInnerRadius, sin(radius * i) * a_fInnerRadius, a_fHeight/2);	// Top1
+		vector3 point8(cos(radius * (i + 1)) * a_fInnerRadius, sin(radius * (i + 1)) * a_fInnerRadius, a_fHeight/2);		// Top2
+
+
+		AddQuad(point1, point2, point3, point4);
+		AddQuad(point6, point5, point8, point7);
+		AddQuad(point3, point4, point7, point8);
+		AddQuad(point5, point6, point1, point2);
+
+	}
 
 	// Adding information about color
 	CompleteMesh(a_v3Color);
@@ -124,31 +184,59 @@ void MyMesh::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fH
 }
 void MyMesh::GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int a_nSubdivisionsA, int a_nSubdivisionsB, vector3 a_v3Color)
 {
-	if (a_fOuterRadius < 0.01f)
-		a_fOuterRadius = 0.01f;
+	//if (a_fOuterRadius < 0.01f)
+	//	a_fOuterRadius = 0.01f;
 
-	if (a_fInnerRadius < 0.005f)
-		a_fInnerRadius = 0.005f;
+	//if (a_fInnerRadius < 0.005f)
+	//	a_fInnerRadius = 0.005f;
 
-	if (a_fInnerRadius > a_fOuterRadius)
-		std::swap(a_fInnerRadius, a_fOuterRadius);
+	//if (a_fInnerRadius > a_fOuterRadius)
+	//	std::swap(a_fInnerRadius, a_fOuterRadius);
 
-	if (a_nSubdivisionsA < 3)
-		a_nSubdivisionsA = 3;
-	if (a_nSubdivisionsA > 360)
-		a_nSubdivisionsA = 360;
+	//if (a_nSubdivisionsA < 3)
+	//	a_nSubdivisionsA = 3;
+	//if (a_nSubdivisionsA > 360)
+	//	a_nSubdivisionsA = 360;
 
-	if (a_nSubdivisionsB < 3)
-		a_nSubdivisionsB = 3;
-	if (a_nSubdivisionsB > 360)
-		a_nSubdivisionsB = 360;
+	//if (a_nSubdivisionsB < 3)
+	//	a_nSubdivisionsB = 3;
+	//if (a_nSubdivisionsB > 360)
+	//	a_nSubdivisionsB = 360;
 
 	Release();
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fOuterRadius * 2.0f, a_v3Color);
+	// GenerateCube(a_fOuterRadius * 2.0f, a_v3Color);
 	// -------------------------------
+	float radius1 = 2*PI / a_nSubdivisionsA;
+	float radius2 = 2*PI / a_nSubdivisionsB;
+	float R = (a_fOuterRadius + a_fInnerRadius) / 2;
+	float r= (a_fOuterRadius - a_fInnerRadius) / 2;
+	for (int i = 0;i < a_nSubdivisionsA;i++)
+	{
+
+		for (int j = 0;j < a_nSubdivisionsB;j++)
+		{
+			vector3 point1((R + cos(radius2 * j)*r) * cos(radius1 * i)
+				, (R+cos(radius2 * j)*r)*sin(radius1*i), sin(radius2*j) * r);
+
+			// Move around the big circle
+			vector3 point2((R + cos(radius2 * j)*r) * cos(radius1 * (i+1))
+				, (R + cos(radius2 * j)*r) * sin(radius1 * (i+1)), sin(radius2 * j) * r);
+
+			// Move around the small circle and the big
+			vector3 point3((R + cos(radius2 * (j + 1))*r) * cos(radius1 * (i + 1))
+				, (R + cos(radius2 * (j + 1))*r) * sin(radius1 * (i + 1)), sin(radius2 * (j+1)) * r);
+
+			// Move around the small circle
+			vector3 point4((R + cos(radius2 * (j + 1))*r) * cos(radius1 * (i))
+				, (R + cos(radius2 * (j + 1))*r) * sin(radius1 * (i)), sin(radius2 * (j + 1)) * r);
+
+			AddTri(point1, point2, point4);
+			AddTri(point2, point3, point4);
+		}
+	}
 
 	// Adding information about color
 	CompleteMesh(a_v3Color);
@@ -160,20 +248,43 @@ void MyMesh::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Co
 		a_fRadius = 0.01f;
 
 	//Sets minimum and maximum of subdivisions
-	if (a_nSubdivisions < 1)
-	{
-		GenerateCube(a_fRadius * 2.0f, a_v3Color);
-		return;
-	}
-	if (a_nSubdivisions > 6)
-		a_nSubdivisions = 6;
+	//if (a_nSubdivisions < 1)
+	//{
+	//	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	//	return;
+	//}
+	//if (a_nSubdivisions > 6)
+	//	a_nSubdivisions = 6;
 
 	Release();
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	// GenerateCube(a_fRadius * 2.0f, a_v3Color);
 	// -------------------------------
+	float angle1 = 2 * PI / a_nSubdivisions;
+	float angle2 = PI / a_nSubdivisions;
+	for (int i = 0;i < a_nSubdivisions;i++)
+	{
+		for (int j = 0;j < a_nSubdivisions;j++)
+		{
+			float height = a_fRadius * sin(PI / 2 - angle2 * i);
+			float newR = a_fRadius * cos(PI / 2 - angle2 * i);
+			vector3 point1(cos(angle1 * j) * newR, sin(angle1 * j) * newR, height);
+			vector3 point2(cos(angle1 * (j + 1)) * newR, sin(angle1 * (j + 1)) * newR, height);	// Move horizontally one spot
+
+
+			float newH = a_fRadius * sin(PI / 2 - angle2 * (i + 1));
+			float nexR = a_fRadius * cos(PI / 2 - angle2 * (i + 1));
+			// Move one spot vertially
+			vector3 point3(cos(angle1 * j) * nexR, sin(angle1 * j) * nexR, newH);
+			vector3 point4(cos(angle1 * (j + 1)) * nexR, sin(angle1 * (j + 1)) * nexR, newH);	// Move horizontally one spot
+
+			AddTri(point1, point3, point2);
+			AddTri(point2, point3, point4);
+		}
+
+	}
 
 	// Adding information about color
 	CompleteMesh(a_v3Color);
